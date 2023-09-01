@@ -8,23 +8,24 @@ def ImprimeMenuPrincipal():
     escolha = input()
     
     if escolha == "1":
-        jogador_x_vitorias = 0
-        jogador_o_vitorias = 0
         for rodar in range(3):
-            vitoria = modoJogador()
-            if vitoria == "X":
-                jogador_x_vitorias += 1
-            elif vitoria == "O":
-                jogador_o_vitorias += 1
-        print("Resultados:")
-        print(f"Jogador X venceu {jogador_x_vitorias} vezes.")
-        print(f"Jogador O venceu {jogador_o_vitorias} vezes.")
+            modoJogador()
+            print("Pontuação:" )
+            print("Jogador X: ", imprimePontuacao['Jogador X'])
+            print("Jogador O: ", imprimePontuacao['Jogador O'])
+            print("Empate: ", imprimePontuacao['Empate'])
     elif escolha == "2":
         for rodar in range(3):
             modoFacil()
+            print("Pontuação:" )
+            print("Jogador X: ", imprimePontuacao['Jogador X'])
+            print("Jogador O: ", imprimePontuacao['Jogador O'])
+            print("Empate: ", imprimePontuacao['Empate'])
     else:
         print("Opção inválida. Digite novamente.")
         ImprimeMenuPrincipal()
+
+imprimePontuacao = {"Jogador X": 0, "Jogador O": 0, "Empate" : 0}
 
 def modoJogador():
 
@@ -33,7 +34,10 @@ def modoJogador():
         ["4", "5", "6"],
         ["7", "8", "9"]
     ]
+
     vitoria = False
+
+    global imprimePontuacao
 
     def ImprimirTabuleiro():
         print("\n")
@@ -83,11 +87,13 @@ def modoJogador():
         vitoria = verificaVencedor("O")
         if vitoria:
             print("Jogador O venceu!")
-            return "O"
+            imprimePontuacao['Jogador O'] += 1
+            break
 
         if jogadas == 9:
             print("O jogo acabou em empate.")
-            return "Empate"
+            imprimePontuacao['Empate'] += 1
+            break
 
         print("Jogador X, escolha um espaço.")
         jogadaUsuario("X")
@@ -97,20 +103,22 @@ def modoJogador():
         vitoria = verificaVencedor("X")
         if vitoria:
             print("Jogador X venceu!")
-            return "X"
+            imprimePontuacao['Jogador X'] += 1
+            break
 
         print("Jogador O, escolha um espaço.")
         jogadaUsuario("O")
-        jogadas += 1
+        jogadas += 1    
 
 def modoFacil():
-
     tabuleiro = [
         ["1", "2", "3"],
         ["4", "5", "6"],
         ["7", "8", "9"]
     ]
     vitoria = False
+
+    global imprimePontuacao
 
     def ImprimirTabuleiro():
         print("\n")
@@ -165,11 +173,13 @@ def modoFacil():
         vitoria = verificaVencedor("O")
         if vitoria:
             print("Jogador O venceu!")
-            return "O"
+            imprimePontuacao['Jogador O'] += 1
+            break
 
         if jogadas == 9:
             print("O jogo acabou em empate.")
-            return "Empate"
+            imprimePontuacao['Empate'] += 1
+            break
 
         print("Jogador X, escolha um espaço.")
         jogadaUsuario("X")
@@ -179,7 +189,8 @@ def modoFacil():
         vitoria = verificaVencedor("X")
         if vitoria:
             print("Jogador X venceu!")
-            return "X"
+            imprimePontuacao['Jogador X'] += 1
+            break
 
         print("Vez do sistema escolher um espaço.")
         jogadaMaquinaFacil()
