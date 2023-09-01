@@ -8,8 +8,17 @@ def ImprimeMenuPrincipal():
     escolha = input()
     
     if escolha == "1":
+        jogador_x_vitorias = 0
+        jogador_o_vitorias = 0
         for rodar in range(3):
-            modoJogador()
+            vitoria = modoJogador()
+            if vitoria == "X":
+                jogador_x_vitorias += 1
+            elif vitoria == "O":
+                jogador_o_vitorias += 1
+        print("Resultados:")
+        print(f"Jogador X venceu {jogador_x_vitorias} vezes.")
+        print(f"Jogador O venceu {jogador_o_vitorias} vezes.")
     elif escolha == "2":
         for rodar in range(3):
             modoFacil()
@@ -74,11 +83,11 @@ def modoJogador():
         vitoria = verificaVencedor("O")
         if vitoria:
             print("Jogador O venceu!")
-            break
+            return "O"
 
         if jogadas == 9:
             print("O jogo acabou em empate.")
-            break
+            return "Empate"
 
         print("Jogador X, escolha um espaço.")
         jogadaUsuario("X")
@@ -88,13 +97,14 @@ def modoJogador():
         vitoria = verificaVencedor("X")
         if vitoria:
             print("Jogador X venceu!")
-            break
+            return "X"
 
         print("Jogador O, escolha um espaço.")
         jogadaUsuario("O")
-        jogadas += 1    
+        jogadas += 1
 
 def modoFacil():
+
     tabuleiro = [
         ["1", "2", "3"],
         ["4", "5", "6"],
@@ -155,11 +165,11 @@ def modoFacil():
         vitoria = verificaVencedor("O")
         if vitoria:
             print("Jogador O venceu!")
-            break
+            return "O"
 
         if jogadas == 9:
             print("O jogo acabou em empate.")
-            break
+            return "Empate"
 
         print("Jogador X, escolha um espaço.")
         jogadaUsuario("X")
@@ -169,7 +179,7 @@ def modoFacil():
         vitoria = verificaVencedor("X")
         if vitoria:
             print("Jogador X venceu!")
-            break
+            return "X"
 
         print("Vez do sistema escolher um espaço.")
         jogadaMaquinaFacil()
